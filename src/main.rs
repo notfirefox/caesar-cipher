@@ -1,29 +1,30 @@
 use std::{io::{self, BufRead}};
 
 fn parse_line() -> Option<String> {
-    let mut iterator = io::stdin().lock().lines();
-    let line = match iterator.next()? {
-        Ok(x) => x,
-        Err(_) => return None,
-    };
-    Some(line.to_string())
+    io::stdin().lock().lines().next()?.ok()
 }
 
 fn caesar_shift(c: char, offset: u8) -> char {
     if !c.is_alphabetic() {
        return c; 
     }
-    let c = (c as u8 + offset) as char;
+    let c = (c as u8 + (offset % 26)) as char;
     if c.is_alphabetic() {
         return c;
     }
-    return (c as u8 - 26) as char;
+    (c as u8 - 26) as char
 }
 
-fn caesar_cipher(input: &String, offset: u8) -> String {
+fn caesar_cipher(input: &str, offset: u8) -> String {
     input.chars()
         .map(|c| caesar_shift(c, offset))
         .collect()
+}
+
+fn main() {
+    if let Some(line) = parse_line() {
+        println!("{}", caesar_cipher(&line, 6));
+    }
 }
 
 #[cfg(test)]
@@ -33,12 +34,6 @@ mod tests {
     #[test]
     fn test_caesar_cipher() {
         let input = "Hello World";
-        assert_eq!(caesar_cipher(&input.to_string(), 6), "Nkrru Cuxrj");
-    }
-}
-
-fn main() {
-    if let Some(line) = parse_line() {
-        println!("{}", caesar_cipher(&line, 6));
+        assert_eq!(caesar_cipher(input, 6), "Nkrru Cuxrj");
     }
 }
