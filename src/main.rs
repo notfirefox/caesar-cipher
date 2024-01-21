@@ -1,4 +1,4 @@
-use std::{io::{self, BufRead}};
+use std::io::{self, BufRead};
 
 fn parse_line() -> Option<String> {
     io::stdin().lock().lines().next()?.ok()
@@ -6,7 +6,7 @@ fn parse_line() -> Option<String> {
 
 fn caesar_shift(c: char, offset: u8) -> char {
     if !c.is_alphabetic() {
-       return c; 
+        return c;
     }
     let c = (c as u8 + (offset % 26)) as char;
     if c.is_alphabetic() {
@@ -16,9 +16,7 @@ fn caesar_shift(c: char, offset: u8) -> char {
 }
 
 fn caesar_cipher(input: &str, offset: u8) -> String {
-    input.chars()
-        .map(|c| caesar_shift(c, offset))
-        .collect()
+    input.chars().map(|c| caesar_shift(c, offset)).collect()
 }
 
 fn main() {
