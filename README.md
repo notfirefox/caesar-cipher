@@ -1,5 +1,5 @@
 # Caesar Cipher
-Caesar Cipher For Alphabetical Text.
+Caesar Cipher For Alphabetical Text
 
 ## :clipboard: Requirements 
 - Rust
